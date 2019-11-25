@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite thread-count="6" name="Failed suite [Suite 1]" guice-stage="DEVELOPMENT">
+  <test thread-count="6" name="PS Test(failed)">
+    <parameter name="Browser" value="Chrome"/>
+    <classes>
+      <class name="com.PS.tests.Login">
+        <methods>
+          <include name="createReport"/>
+          <include name="Signup"/>
+          <include name="closeReport"/>
+          <include name="setup"/>
+        </methods>
+      </class> <!-- com.PS.tests.Login -->
+    </classes>
+  </test> <!-- PS Test(failed) -->
+</suite> <!-- Failed suite [Suite 1] -->
