@@ -252,6 +252,12 @@ public class CustomerDetails_Page extends Base {
 	@FindBy(xpath = "//div[@class='modal-header ng-scope']//button[@type='button']")
 	public static WebElement InvoiceClose;
 	
+	@FindBy(xpath = "//div[@id='page-container']//tr[1]//td[1]")
+	public static WebElement getInvoiceNumber;
+	
+	@FindBy(xpath = "//div[@id='page-container']//tr[1]//td[4]")
+	public static WebElement getInvoiceAmount;
+	
 	@FindBy(xpath = "(//h4[@class='panel-title']//a[@accordion-transclude='heading'])//i[@class='pull-right fa fa-angle-left']")
 	public static WebElement FilterToggle;
 	
@@ -265,6 +271,114 @@ public class CustomerDetails_Page extends Base {
 	
 	@FindBy(xpath = "//div[@id='page-container']//td[3]//a")
 	public static WebElement getCustomerName;
+	
+	//create credit memo
+	@FindBy(xpath = "((//ul[@id='bo-li-style-3'])[1]/li)[3]")
+	public static WebElement createCreditMemo;
+	
+	@FindBy(xpath = "(//input[@class='select2-focusser select2-offscreen'][@role='button'])[5]/..//b")
+	public WebElement MemoProductName;
+	@FindBy(xpath = "(//input[@type='text'][@role='combobox'])[11]")
+	public static WebElement MemoProductNameSearch;
+	@FindBy(xpath = "//div[@class='select2-result-label'][@role='option']")
+	public static WebElement MemoProductNameSearchClick;
+	
+	@FindBy(xpath = "//input[@id='0-2'][@type='number']")
+	public static WebElement MemoQuantity;
+	@FindBy(xpath = "//input[@id='0-4'][@type='number']")
+	public static WebElement MemoRate;
+	
+	@FindBy(xpath = "//button[@class='btn btn-green']")
+	public static WebElement MemoInvoiceSave;
+	
+	@FindBy(xpath = "//p[@class='ng-binding']")
+	public static WebElement MemoConfirmatioBox;
+	
+	@FindBy(xpath = "(//button[@class='btn btn-green'])[2]")
+	public static WebElement MemoYES;
+	
+	//Accept Payment
+	@FindBy(xpath = "((//ul[@id='bo-li-style-3'])[1]/li)[5]")
+	public WebElement acceptPayment;
+	
+	@FindBy(xpath = "//div[@class='modal-header ignorePDFElement']//h3[@id='reportTitle']")
+	public WebElement paymentDetailPopupText;
+	
+	@FindBy(xpath = "//div[@class='col-sm-6 ng-binding']")
+	public WebElement CustomerName;
+	
+	@FindBy(xpath = "(//input[@class='select2-focusser select2-offscreen'][@role='button'])[2]/..//b")
+	public static WebElement clickInvoiceNumber;
+	@FindBy(xpath = "(//input[@class='select2-input'][@type='text'])[3]")
+	public static WebElement enterInvoiceNumberSearch;
+	@FindBy(xpath = "//div[@id='select2-drop']//ul[@class='select2-results']")
+	public static WebElement clickInvoiceNumSearchSelect;
+	
+	@FindBy(xpath = "(//input[@class='select2-focusser select2-offscreen'][@role='button'])[3]/..//b")
+	public static WebElement paymentMode;
+	@FindBy(xpath = "(//input[@class='select2-input'][@type='text'])[3]")
+	public static WebElement paymentModeSearch;
+	@FindBy(xpath = "//div[@id='select2-drop']//ul[@class='select2-results']")
+	public static WebElement paymentModeSearchClick;
+	
+	@FindBy(xpath = "//input[@name='payment Mode Details']")
+	public static WebElement paymentModeDetails;
+	
+	@FindBy(xpath = "//input[@name='amount']")
+	public static WebElement amount;
+	
+	@FindBy(xpath = "//button[@type='submit'][@class='btn btn-green']")
+	public static WebElement addPayment;
+	
+	@FindBy(xpath = "//button[@type='button'][@class='btn btn-default']")
+	public static WebElement cancel;
+	
+	@FindBy(xpath = "(//div[@class='ui-grid-cell-contents ng-binding ng-scope']//a)[1]")
+	public static WebElement searchedCust1;
+	
+	@FindBy(xpath ="(//button[@class='btn btn-green-alt'][@title='Payment'])[1]")
+	public static WebElement Payment;
+	
+	@FindBy(xpath = "//h4[contains(text(),'Transaction does not exist')]")
+	public static WebElement PaymentTransactionNotExist;
+	
+	//Show Address
+	@FindBy(xpath = "((//ul[@id='bo-li-style-3'])[1]/li)[11]")
+	public static WebElement ShowAddress;
+	
+	@FindBy(xpath = "//h3[@class='modal-title text-center']")
+	public static WebElement showAddressPopUpText;
+	
+	@FindBy(xpath = "(//button[@class='btn btn-default'])[1]")
+	public static WebElement AddRow;
+	
+	@FindBy(xpath = "//input[@id='2']")
+	public static WebElement AddressName;
+	
+	@FindBy(xpath = "//tr[3]//td[5]//input[1]")
+	public static WebElement StreetAddress1;
+	
+	@FindBy(xpath = "//tr[3]//td[6]//input[1]")
+	public static WebElement StreetAddress2;
+	
+	@FindBy(xpath = "//tr[3]//td[7]//input[1]")
+	public static WebElement AddressCity;
+	
+	@FindBy(xpath = "//select[@class='show-address-input ng-pristine ng-valid ng-empty ng-touched']")
+	public static WebElement AddressCountry;
+	
+	@FindBy(xpath = "(//button[@type='submit'])[2]")
+	public static WebElement AddressSave;
+	@FindBy(xpath = "//button[@class='btn btn-green']")
+	public static WebElement AddressConfirmationYes;
+	
+	@FindBy(xpath = "//tr[3]//td[11]//div[1]//button[1]")
+	public static WebElement AddressEdit;
+	
+	@FindBy(xpath = "(//div[@class='icheckbox_flat'])[12]//input[@type='checkbox']")
+	public WebElement DefaultAddressYES;
+	
+	
 	
 	public CustomerDetails_Page() {
 		PageFactory.initElements(driver, this);

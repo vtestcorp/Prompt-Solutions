@@ -397,7 +397,7 @@ public class CustomersDetails extends Base {
 		if (custDetails.createSOInvoice.isDisplayed()) {
 			et.log(LogStatus.PASS, "Create SO Invoice Text displayed",
 					et.addScreenCapture(pass("Create SO Invoice Text displayed")));
-			Utility.click(CustomerDetails_Page.createSOInvoice);
+			Utility.click(custDetails.createSOInvoice);
 		} else {
 			et.log(LogStatus.FAIL, "Create SO Invoice is not displayed",
 					et.addScreenCapture(fail("Create SO Invoice Text is not displayed")));
@@ -466,7 +466,6 @@ public class CustomersDetails extends Base {
 		} else {
 			et.log(LogStatus.FAIL, "Sales Invoice Details is not Filled",
 					et.addScreenCapture(fail("Sales Invoice Details is not Filled")));
-
 		}
 		Thread.sleep(4000);
 		Utility.wait(custDetails.ValidateSInvoice);
@@ -481,7 +480,6 @@ public class CustomersDetails extends Base {
 		} else {
 			et.log(LogStatus.FAIL, "Sales Invoice is not Created",
 					et.addScreenCapture(fail("Sales Invoice is not Created")));
-
 		}
 		Utility.implicitwait();
 
@@ -506,6 +504,12 @@ public class CustomersDetails extends Base {
 		Utility.click(custDetails.applyFilter);
 		Utility.implicitwait();
 		
+		String invoiceNum = custDetails.getInvoiceNumber.getText();
+		Utility.ExcelWrite(1,27, invoiceNum);
+		
+		String invoiceAmount = custDetails.getInvoiceAmount.getText().substring(0, 3);
+		Utility.ExcelWrite(1,28, invoiceAmount );
+		
 		String actualName = custDetails.getCustomerName.getText();
 		System.out.println("Actual Name :" + actualName);
 		
@@ -519,6 +523,258 @@ public class CustomersDetails extends Base {
 		}
 	}
 
+	@Test(priority=4, enabled=true)
+	public void CreateCreditMemo() throws InterruptedException, IOException
+	{
+	create_extent_test("Create Credit Memo");
+		
+		Utility.click(custDetails.CustomersMenuBtn);
+		Utility.implicitwait();
+
+		Utility.click(custDetails.hamburgerbtn);
+		if (custDetails.createCreditMemo.isDisplayed()) {
+			et.log(LogStatus.PASS, "Create Credit Memo text displayed",
+					et.addScreenCapture(pass("Create Credit Memo text displayed")));
+			Utility.click(custDetails.createCreditMemo);
+		} else {
+			et.log(LogStatus.FAIL, "Create Credit Memo text is not displayed",
+					et.addScreenCapture(fail("Create Credit Memo text is not displayed")));
+		}
+
+		Utility.implicitwait();
+
+		Thread.sleep(1000);
+		Utility.implicitwait();
+		Utility.wait(custDetails.pencilEditIcon);
+		if (custDetails.pencilEditIcon.isDisplayed()) {
+			et.log(LogStatus.PASS, "Edit icon displayed",
+					et.addScreenCapture(pass("Edit icon displayed")));
+		} else {
+			et.log(LogStatus.FAIL, "Edit icon not displayed",
+					et.addScreenCapture(fail("Edit icon not displayed")));
+		}
+
+		Utility.click(custDetails.pencilEditIcon);
+		Utility.implicitwait();
+		Utility.click(custDetails.MemoProductName);
+		Utility.enterText(custDetails.MemoProductNameSearch, Utility.excelRead(1, 24));
+		Utility.click(custDetails.MemoProductNameSearchClick);
+
+		Utility.enterText(custDetails.MemoQuantity, Utility.excelReadInt(1, 25));
+		Utility.enterText(custDetails.MemoRate, Utility.excelReadInt(1, 26));
+
+		Utility.implicitwait();
+		Utility.JS_Scrolldown(custDetails.MemoInvoiceSave);
+		Utility.implicitwait();
+
+		if (custDetails.MemoInvoiceSave.isDisplayed()) {
+			et.log(LogStatus.PASS, "Product, Quantity, Rate information filled",
+					et.addScreenCapture(pass("Product, Quantity, Rate information filled")));
+			Utility.click(custDetails.MemoInvoiceSave);
+		} else {
+			et.log(LogStatus.FAIL, "Product, Quantity, Rate information not filled",
+					et.addScreenCapture(fail("Product, Quantity, Rate information not filled")));
+		}
+
+		if (custDetails.MemoConfirmatioBox.isDisplayed()) {
+			et.log(LogStatus.PASS, "Credit Memo Details Filled Successfully",
+					et.addScreenCapture(pass("Credit Memo Details Filled Successfully")));
+			Utility.implicitwait();
+			Utility.click(custDetails.MemoYES);
+			System.out.println("Clicked");
+			Thread.sleep(1000);
+			et.log(LogStatus.PASS, "Created Credit Memo Successfully",
+					et.addScreenCapture(pass("Created Credit Memo Successfully")));
+			Utility.implicitwait();
+		} else {
+			et.log(LogStatus.FAIL, "Credit Memo Details is not Filled and created",
+					et.addScreenCapture(fail("Credit Memo Details is not Filled and created")));
+		}
+		Utility.implicitwait();
+		Thread.sleep(1000);
+		String CreatedMemoURL = "http://thepromptsolutions.com/test/businessnotes/#/creditMemoTx";
+		System.out.println(Utility.getURL());
+		String actualURL = Utility.getURL();
+		
+		if(actualURL.contains(CreatedMemoURL))
+		{
+			et.log(LogStatus.PASS, "Navigated to Credit Memo page successfully",
+					et.addScreenCapture(pass("Navigated to Credit Memo page Successfully")));
+		}
+		else {
+			et.log(LogStatus.FAIL, "Naviating to Prod URL instead of navigated to Credit Memo page.",
+					et.addScreenCapture(fail("Naviating to Prod URL instead of navigated to Credit Memo page.")));
+		}
+
+	}
+	
+	@Test(priority=5, enabled = true)
+	public void AcceptPayment() throws InterruptedException, IOException
+	{
+		create_extent_test("Accept Payment");
+		
+		Utility.click(custDetails.CustomersMenuBtn);
+		Utility.implicitwait();
+		
+		Utility.click(custDetails.hamburgerbtn);
+		
+		if (custDetails.acceptPayment.isDisplayed()) {
+			et.log(LogStatus.PASS, "Create Credit Memo text displayed",
+					et.addScreenCapture(pass("Create Credit Memo text displayed")));
+			Utility.click(custDetails.acceptPayment);
+		} else 
+		{
+			et.log(LogStatus.FAIL, "Create Credit Memo text is not displayed",
+					et.addScreenCapture(fail("Create Credit Memo text is not displayed")));
+		}
+		
+		if(custDetails.paymentDetailPopupText.isDisplayed())
+		{
+			et.log(LogStatus.PASS, "Payment Detail popup text displayed",
+					et.addScreenCapture(pass("Payment Detail popup text displayed")));
+		} else
+		{
+			et.log(LogStatus.FAIL, "Payment Detail popup text is not displayed",
+					et.addScreenCapture(fail("Payment Detail popup text is not displayed")));
+		}
+		
+		String expectedCustName = Utility.excelRead(1, 2);
+		String actualCustName = custDetails.CustomerName.getText();
+		
+		if(actualCustName.contains(expectedCustName))
+		{
+			et.log(LogStatus.PASS, "Customer name matched",
+					et.addScreenCapture(pass("Customer name matched")));
+		} else
+		{
+			et.log(LogStatus.FAIL, "Customer name not matched",
+					et.addScreenCapture(fail("Customer name not matched")));
+		}
+		
+//		Utility.click(custDetails.clickInvoiceNumber);
+//		Utility.enterText(custDetails.enterInvoiceNumberSearch,Utility.excelRead(1, 27));
+//		String actInvoiceResult = custDetails.clickInvoiceNumSearchSelect.getText();
+//		String expInvoiceResult = Utility.excelRead(1, 27);
+//		Utility.implicitwait();
+//		if(actInvoiceResult.contains(expInvoiceResult))
+//		{
+//			Utility.click(custDetails.clickInvoiceNumSearchSelect);
+//			et.log(LogStatus.PASS, "Invoice Number matched",
+//					et.addScreenCapture(pass("Invoice Number matched")));
+//		} else
+//		{
+//			et.log(LogStatus.FAIL, "Invoice Number not found",
+//					et.addScreenCapture(fail("Invoice Number not found")));
+//			Utility.click(custDetails.clickInvoiceNumber);
+//		}
+		
+		Thread.sleep(500);
+		Utility.click(custDetails.paymentMode);
+		Utility.enterText(custDetails.paymentModeSearch, Utility.excelRead(1, 28));
+		Utility.click(custDetails.paymentModeSearchClick);
+		Thread.sleep(1000);
+		
+		Utility.enterText(custDetails.paymentModeDetails, Utility.excelRead(1, 29));
+		Utility.enterText(custDetails.amount, Utility.excelReadInt(1, 30));
+		Thread.sleep(500);
+		Utility.ActionClick(custDetails.addPayment);
+		
+		if(custDetails.addPayment.isDisplayed())
+		{
+			et.log(LogStatus.FAIL, "Payment is not added and Popup is still open state",
+					et.addScreenCapture(fail("Payment is not added and Popup is still open state")));
+			Utility.click(custDetails.cancel);
+			System.out.println("Crossed");
+		} else
+		{
+			et.log(LogStatus.PASS, "Payment is added successfully and customer payment pop up is closed",
+					et.addScreenCapture(pass("Payment is added successfully and customer payment pop up is closed")));
+		}
+		Thread.sleep(1000);
+		Utility.click(custDetails.searchedCust);
+		Utility.implicitwait();
+		
+		Utility.click(custDetails.Payment);
+		Thread.sleep(1000);
+		String expected = "Transaction does not exist ";
+		String actual = custDetails.PaymentTransactionNotExist.getText();
+		if(actual.contains("Transaction does not exist "))
+		{
+			et.log(LogStatus.FAIL, "Customer Transaction does not exist",
+					et.addScreenCapture(fail("Customer Transaction does not exist")));
+		} else
+		{
+			et.log(LogStatus.PASS, "Customer Transaction found",
+					et.addScreenCapture(pass("Customer Transaction found")));
+		}
+	}
+	
+	@Test(priority=6, enabled=true)
+	public void ShowAddress() throws InterruptedException, IOException
+	{
+		create_extent_test("Add New Address and Update Existing Address");
+		
+		Utility.click(custDetails.CustomersMenuBtn);
+		Utility.implicitwait();
+		
+		Utility.click(custDetails.hamburgerbtn);
+		
+		if (custDetails.ShowAddress.isDisplayed()) {
+			et.log(LogStatus.PASS, "Show Address option displayed",
+					et.addScreenCapture(pass("Show Address text displayed")));
+			Utility.click(custDetails.ShowAddress);
+		} else 
+		{
+			et.log(LogStatus.FAIL, "Show Address option not displayed",
+					et.addScreenCapture(fail("Show Address text not displayed")));
+		}
+		
+		if(custDetails.showAddressPopUpText.isDisplayed())
+		{
+			et.log(LogStatus.PASS, "Show Address popup page loaded",
+					et.addScreenCapture(pass("Show Address popup page loaded")));
+		} else
+		{
+			et.log(LogStatus.FAIL, "Show Address popup page loaded",
+					et.addScreenCapture(fail("Show Address popup page loaded")));
+		}
+		Utility.click(custDetails.AddRow);
+		Utility.enterText(custDetails.AddressName, Utility.excelRead(1, 31));
+		Utility.enterText(custDetails.StreetAddress1, Utility.excelRead(1, 9));
+		Utility.enterText(custDetails.AddressCity, Utility.excelRead(1, 10));
+		
+		Utility.click(custDetails.AddressSave);
+		
+		if(custDetails.AddressConfirmationYes.isDisplayed())
+		{
+			et.log(LogStatus.PASS, "Confirmation popup displayed",
+					et.addScreenCapture(pass("Confirmation popup displayed")));
+			custDetails.AddressConfirmationYes.click();
+		} else
+		{
+			et.log(LogStatus.FAIL, "Confirmation popup not displayed",
+					et.addScreenCapture(fail("Confirmation popup not displayed")));
+		}
+		
+		//update existing address
+		Utility.implicitwait();
+		Utility.click(custDetails.AddressEdit);
+		Utility.ActionClick(custDetails.DefaultAddressYES);
+		
+		Utility.click(custDetails.AddressSave);
+		
+		if(custDetails.AddressConfirmationYes.isDisplayed())
+		{
+			custDetails.AddressConfirmationYes.click();
+			et.log(LogStatus.PASS, "Existing Address Updated",
+					et.addScreenCapture(pass("Existing Address Updated")));		
+		} else
+		{
+			et.log(LogStatus.FAIL, "Existing Address not Updated",
+					et.addScreenCapture(fail("Existing Address not Updated")));
+		}
+	}
+	
 	@AfterMethod
 	public void tearDown() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

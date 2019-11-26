@@ -30,6 +30,7 @@ public class Utility extends Base {
 	public static String intText;
 	public static JavascriptExecutor js;
 	public static Actions act;
+	public static Select drpCountry;
 	
 
 	public static String Date_Time() {
@@ -81,7 +82,6 @@ public class Utility extends Base {
 		js = (JavascriptExecutor)driver;
 		js.executeScript("window.scrollBy(0,500)");	
 	}
-	
 
 	public static void enterText(WebElement element, String text) {
 		element.clear();
@@ -93,16 +93,22 @@ public class Utility extends Base {
 		element.sendKeys(text);
 		element.click();
 	}
-
-	public static void implicitwait() throws InterruptedException {
-		driver.manage().timeouts().implicitlyWait(70, TimeUnit.SECONDS);
-		Thread.sleep(2000);
+	
+	public static String getURL()
+	{
+		String currentURL = driver.getCurrentUrl();
+		
+		return currentURL;
 	}
 
+	public static void implicitwait() throws InterruptedException {
+		driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
+		Thread.sleep(2000);
+	}
+	
 	public static void wait(WebElement element) {
 		WebDriverWait wt = new WebDriverWait(driver, 10000);
 		wt.until(ExpectedConditions.visibilityOf(element));
-
 	}
 
 	public static void mouseHover(WebElement ele) {
@@ -138,7 +144,13 @@ public class Utility extends Base {
 	public static void closeAllOpenBrowser() {
 		driver.quit();
 	}
-
+	
+	public static void selectDropdownValue(WebElement ele, String CountryName)
+	{
+		drpCountry = new Select(ele);
+		drpCountry.selectByVisibleText(CountryName);
+	}
+	
 	public static String excelRead(int row, int cell) {
 		try {
 			File src = new File(prop.getProperty("CustomerDetails"));
@@ -166,7 +178,6 @@ public class Utility extends Base {
 			intText = String.valueOf(x);
 			fis.close();
 		} catch (Exception e) {
-
 			System.out.println(e.getMessage());
 
 		}
@@ -206,15 +217,15 @@ public class Utility extends Base {
 
 	}
 
-	public static void ExcelWrite() {
+	public static void ExcelWrite(int row, int cell, String text) {
 		try {
-			File src1 = new File(prop.getProperty("newCoolerAsset"));
+			File src1 = new File(prop.getProperty("CustomerDetails"));
 			FileInputStream fis1 = new FileInputStream(src1);
 			XSSFWorkbook wb1 = new XSSFWorkbook(fis1);
 			XSSFSheet sh12 = wb1.getSheetAt(0);
-			sh12.getRow(1).createCell(1).setCellValue(s1);
+			sh12.getRow(row).createCell(cell).setCellValue(text);
 
-			FileOutputStream fout = new FileOutputStream(new File(prop.getProperty("newCoolerAsset")));
+			FileOutputStream fout = new FileOutputStream(new File(prop.getProperty("CustomerDetails")));
 
 			wb1.write(fout);
 
