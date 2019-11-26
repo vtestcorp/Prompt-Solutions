@@ -378,7 +378,32 @@ public class CustomerDetails_Page extends Base {
 	@FindBy(xpath = "(//div[@class='icheckbox_flat'])[12]//input[@type='checkbox']")
 	public WebElement DefaultAddressYES;
 	
-	
+	//create Expense
+		@FindBy(xpath = "((//ul[@id='bo-li-style-3'])[1]/li)[4]")
+		public static WebElement createExpense;
+		
+		@FindBy(xpath = "//div[@class='actionIcon ng-scope']//a[@class='ng-scope']")
+		public static WebElement ExpPencilIcon;
+		
+		@FindBy(xpath = "(//input[@class='select2-focusser select2-offscreen'][@role='button'])[6]/..//b")
+		public static WebElement ExpenseType;
+		@FindBy(xpath = "(//input[@type='text'][@role='combobox'])[6]")
+		public static WebElement expenseTypeSearch;
+		@FindBy(xpath = "//div[@class='select2-result-label'][@role='option']")
+		public static WebElement expenseTypeSearchClick;
+		
+		@FindBy(xpath = "//input[@id='0-2'][@type='number']")
+		public static WebElement expenseAmount;
+		@FindBy(xpath = "//button[@class='btn btn-green ng-binding']")
+		public static WebElement createExpenseBtn;
+		@FindBy(xpath = "//button[@class='btn btn-green']")
+		public static WebElement expConfirmationBoxYES;
+		
+		@FindBy(xpath = "//div[@id='page-container']//tr[1]//td[1]")
+		public static WebElement getExpenseNumber;
+		
+		@FindBy(xpath = "//div[@id='page-container']//tr[1]//td[2]")
+		public static WebElement getExpCustomerName;
 	
 	public CustomerDetails_Page() {
 		PageFactory.initElements(driver, this);

@@ -775,6 +775,105 @@ public class CustomersDetails extends Base {
 		}
 	}
 	
+	@Test(priority=7, enabled = true)
+	public void createExpense() throws InterruptedException, IOException
+	{
+	
+		create_extent_test("Create Expense and verify");
+		
+		Utility.click(custDetails.CustomersMenuBtn);
+		Utility.implicitwait();
+		
+		Utility.click(custDetails.hamburgerbtn);
+		
+		if (custDetails.createExpense.isDisplayed()) {
+			et.log(LogStatus.PASS, "Create Expense option displayed",
+					et.addScreenCapture(pass("Create Expense text displayed")));
+			Utility.click(custDetails.createExpense);
+		} else 
+		{
+			et.log(LogStatus.FAIL, "Create Expense option not displayed",
+					et.addScreenCapture(fail("Create Expense text not displayed")));
+		}
+		
+		Utility.implicitwait();
+		Thread.sleep(1000);
+		if (custDetails.ExpPencilIcon.isDisplayed()) {
+			Utility.click(custDetails.ExpPencilIcon);
+			et.log(LogStatus.PASS, "Edit icon displayed",
+					et.addScreenCapture(pass("Edit icon displayed")));
+		} else {
+			et.log(LogStatus.FAIL, "Edit icon not displayed",
+					et.addScreenCapture(fail("Edit icon not displayed")));
+		}
+		
+		Utility.implicitwait();
+		Utility.click(custDetails.ExpenseType);
+		Utility.enterText(custDetails.expenseTypeSearch, Utility.excelRead(1, 33));
+		Utility.click(custDetails.expenseTypeSearchClick);
+
+		Thread.sleep(1000);
+		Utility.enterText(custDetails.expenseAmount, Utility.excelReadInt(1, 34));
+		if(custDetails.createExpenseBtn.isDisplayed())
+		{
+		et.log(LogStatus.PASS, "Create Expense details Filled",
+				et.addScreenCapture(pass("Create Expense details Filled")));
+		Utility.click(custDetails.createExpenseBtn);
+		} else 
+		{
+			et.log(LogStatus.FAIL, "Create Expense details not Filled",
+				et.addScreenCapture(fail("Create Expense details not Filled")));
+		}
+		Utility.implicitwait();
+		if(custDetails.expConfirmationBoxYES.isDisplayed())
+		{
+			et.log(LogStatus.PASS, "Confirmation Pop up displayed",
+					et.addScreenCapture(pass("Confirmation Pop up displayed")));
+			Utility.click(custDetails.expConfirmationBoxYES);
+			} 
+		else 
+			{
+				et.log(LogStatus.FAIL, "Confirmation Pop up displayed",
+					et.addScreenCapture(fail("Confirmation Pop up displayed")));
+			}
+
+		Utility.wait(custDetails.ValidateSInvoice);
+		if (custDetails.ValidateSInvoice.isDisplayed()) {
+			et.log(LogStatus.PASS, "Expense Created Sucessfully",
+					et.addScreenCapture(pass("Expense Created Sucessfully")));
+			Utility.wait(custDetails.InvoiceClose);
+			Utility.implicitwait();
+			Thread.sleep(2000);
+			Utility.implicitwait();
+			Utility.click(custDetails.InvoiceClose);
+		} else {
+			et.log(LogStatus.FAIL, "Expense not Created",
+					et.addScreenCapture(fail("Expense not Created")));
+		}
+		Utility.implicitwait();
+
+		Thread.sleep(1000);
+		Utility.JS_ScrollUP();
+		
+		String ExpenseNum = custDetails.getInvoiceNumber.getText();
+		Utility.ExcelWrite(1,27, ExpenseNum);
+		
+		String expectedName = Utility.excelRead(1, 2);
+		
+		String actualName = custDetails.getExpCustomerName.getText();
+		System.out.println("Actual Name :" + actualName);
+		
+		try {
+			Assert.assertEquals(actualName, expectedName);
+			et.log(LogStatus.PASS, "Customer name expense Found", et.addScreenCapture(pass("Customer name expense Found")));
+		} 
+		catch (Exception ex){
+			et.log(LogStatus.FAIL, "Customer name expense is not Found", et.addScreenCapture(fail("Customer name expense is not Found")));
+
+		}
+		
+	}
+	
 	@AfterMethod
 	public void tearDown() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);

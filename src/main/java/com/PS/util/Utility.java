@@ -107,7 +107,7 @@ public class Utility extends Base {
 	}
 	
 	public static void wait(WebElement element) {
-		WebDriverWait wt = new WebDriverWait(driver, 10000);
+		WebDriverWait wt = new WebDriverWait(driver, 1000);
 		wt.until(ExpectedConditions.visibilityOf(element));
 	}
 
