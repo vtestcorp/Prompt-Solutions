@@ -405,6 +405,234 @@ public class CustomerDetails_Page extends Base {
 		@FindBy(xpath = "//div[@id='page-container']//tr[1]//td[2]")
 		public static WebElement getExpCustomerName;
 	
+		
+
+		//By Nitin Borse
+		
+		@FindBy(xpath = "(//div[@class='ui-grid-cell-contents ng-binding ng-scope']//a//strong)[1]")
+		public WebElement customerName;
+		
+		@FindBy(xpath = "(//button[@class='btn btn-default dropdown-toggle'])[1]")
+		public WebElement togglebutton;
+		
+		@FindBy(xpath = "//div[contains(@class,'open')]//i[@class='fa fa-trash-o']")
+		public WebElement deletebutton;
+		
+		@FindBy(xpath = "//div[contains(@class,'modal-body')]//p")
+		public WebElement popuptext;
+		
+		@FindBy(xpath = "//button[@class='btn btn-green']")
+		public WebElement yesbtn;
+		
+		@FindBy(xpath = "//h4[@class='ui-pnotify-title']")
+		public WebElement popUpMessage;
+		
+		@FindBy(xpath = "//div[contains(@class,'open')]//a[contains(@ng-click,'ToSalesOrder')]")
+		public WebElement createSO;
+		
+		@FindBy(xpath = "(//dd)[1]")
+		public WebElement soCustname;
+		
+		@FindBy(xpath = "//add-my-ui-select[@placeholder='Billing Address']")
+		public WebElement soAddressDrop;
+		
+		@FindBy(xpath = "//div[@id='select2-drop']//li[contains(@class,'-highlighted')]")
+		public WebElement soDropValue;
+		
+		@FindBy(xpath = "//div[@class='input-group-btn']")
+		public WebElement soDateIcon;	
+		
+		@FindBy(xpath = "//button[contains(@class,' btn-info active')]")
+		public WebElement soDateSelect;	
+		
+		@FindBy(xpath = "//add-my-ui-select[@title='project Name']")
+		public WebElement ProjNameDrop;	
+		
+		@FindBy(xpath = "//div[@id='select2-drop']//li[2]")
+		public WebElement ProjSelect;	
+			
+		@FindBy(xpath = "//label[contains(text(),'Select place of supply')]")
+		public WebElement soClickTable;
+		
+		@FindBy(xpath = "(//tr[@class='editable-custom-tr']//div[contains(@class,'customer-state')])[1]")
+		public WebElement soClickPOS;
+		
+		@FindBy(xpath = "//option[contains(text(),'Assam')]")
+		public WebElement soSelectPOS;
+		
+		@FindBy(xpath = "(//add-my-ui-select[@title='Source']//div)[1]")
+		public WebElement soClickSource;
+			
+		@FindBy(xpath = "//option[contains(text(),'Email')]")////div[contains(@class,'soSource')]//span[contains(text(),'Email')]
+		public WebElement soSelectSource;
+
+		@FindBy(xpath = "//input[@name='customerPoNumber']")
+		public WebElement custPoNumber;
+		
+		@FindBy(xpath = "//input[@name='referenceNumber']")
+		public WebElement RefNo;
+		
+		@FindBy(xpath = "//add-my-ui-select[@title='Sales Person']")
+		public WebElement salesPerson;
+		
+		@FindBy(xpath = "//option[contains(text(),'Jyoti Singh')]")
+		public WebElement salesPersonVal;
+		
+		
+		@FindBy(xpath = "//i[@class='glyphicon glyphicon-pencil']")
+		public WebElement clickInvoiceTable;
+		
+		@FindBy(xpath = "//product-and-service-select[@select-name='product0']") 
+		public WebElement clickProduct;
+		@FindBy(xpath = "//div[contains(@class,'product product')]//input[contains(@id,'search')]")
+		public WebElement enterProductVal;
+		@FindBy(xpath = "//ul[@class='select2-result-sub']//li[contains(@class,'highlighted')]")
+		public WebElement selectProductVal;
+		
+		@FindBy(xpath = "//select[@name='product0']//option[3]")
+		public WebElement clickProductVal;
+		
+		@FindBy(xpath = "//input[contains(@ng-model,'quantity')]")
+		public WebElement clickQuantity;
+		
+		@FindBy(xpath = "(//add-my-ui-select[@title='UOM']//div)[1]")
+		public WebElement clickUOM;	
+		@FindBy(xpath = "//div[contains(@class,'productUOM')]//input[contains(@id,'search')]")
+		public WebElement enterUOM;	
+		@FindBy(xpath = "//ul[@class='select2-results']//li[contains(@class,'highlighted')]")
+		public WebElement selectUOM;
+		
+		@FindBy(xpath = "//input[contains(@ng-model,'rate')]")
+		public WebElement clickRate;
+		
+		@FindBy(xpath = "//input[contains(@ng-model,'discountPercent')]")
+		public WebElement clickDiscount;
+		
+		@FindBy(xpath = "//add-my-ui-select[contains(@ng-model,'cgstTaxId')]")
+		public WebElement clickCGST;
+		@FindBy(xpath = "//div[contains(@class,'taxName1')]//input")
+		public WebElement enterCGST;
+		@FindBy(xpath = "//ul[@class='select2-results']//li[contains(@class,'highlighted')]")
+		public WebElement selectCGST;
+		
+		
+//		@FindBy(xpath = "//add-my-ui-select[contains(@ng-model,'cgstTaxId')]//option[3]")
+//		public WebElement clickCGSTValue;
+		
+		@FindBy(xpath = "//add-my-ui-select[contains(@ng-model,'sgstTaxId')]")
+		public WebElement clickSGST;
+		@FindBy(xpath = "//div[contains(@class,'taxName2')]//input")
+		public WebElement enterSGST;
+		@FindBy(xpath = "//add-my-ui-select[contains(@ng-model,'sgstTaxId')]//option[3]")
+		public WebElement selectSGSTValue;
+		
+		@FindBy(xpath = "//div[@class='container-fluid']//button[1]")
+		public WebElement saveButton;
+
+		@FindBy(xpath = "//div[contains(@data-ng-include,'confirmationPopup')]//button[text()='Yes']")
+		public WebElement yesButton;
+		
+		
+		//ActivityXpath
+		@FindBy(xpath = "//div[contains(@class,'open')]//a[contains(@ng-click,'openNewActivityModal')]")
+		public WebElement activityToggle;
+		//div[contains(@class,'open')]//a[contains(@ng-click,'openNewCommunicationModal')]
+		@FindBy(xpath = "//form[@name='newActivityForm']//input[@name='activityDetails']")
+		public WebElement activityName;
+		
+		@FindBy(xpath = "//form[@name='newActivityForm']//input[@name='activityDescription']")
+		public WebElement activityDescrp;
+
+		@FindBy(xpath = "//form[@name='newActivityForm']//add-my-ui-select[@id-property='activityTypeId']")
+		public WebElement activityType;
+		
+		@FindBy(xpath = "//div[contains(@class,'newCrmActivityType')]//input")
+		public WebElement activityTypeInput;
+		
+		@FindBy(xpath = "//form[@name='newActivityForm']//add-my-ui-select[@id-property='activityStatusId']")
+		public WebElement activityStatus;
+		
+		@FindBy(xpath = "//div[contains(@class,'crmActivityStatus')]//input")
+		public WebElement activityStatusInput;
+		
+		@FindBy(xpath = "//form[@name='newActivityForm']//add-my-ui-select[@id-property='activityPriorityId']")
+		public WebElement activityPriority;
+		
+		@FindBy(xpath = "//div[contains(@class,'crmActivityPriority')]//input")
+		public WebElement activityPriorityInput;
+		
+		@FindBy(xpath = "//button[contains(@class,' active')]")
+		public WebElement activitydateSelect;
+		
+		@FindBy(xpath = "//label[contains(text(),'Assign')]//following::div[contains(@id,'s2id_autogen')]")
+		public WebElement activityAssignedTo;
+		
+		@FindBy(xpath = "//div[@id='select2-drop']//input")
+		public WebElement activityAssignedToName;
+		
+		@FindBy(xpath = "//div[@id='select2-drop']//li[contains(@class,'highlighted')]")
+		public WebElement activityAssignedToNameSelect;
+		
+		
+		@FindBy(xpath = "//button[contains(@ng-click,'createActivity')]")
+		public WebElement activityCreate;
+		
+		//Log Communication
+		@FindBy(xpath = "//div[contains(@class,'open')]//a[contains(@ng-click,'openNewCommunicationModal')]")
+		public WebElement communicateToggle;
+		
+		@FindBy(xpath = "//input[@name='communicationMode']")
+		public WebElement communicateMode;
+		
+		@FindBy(xpath = "//input[@name='description']")
+		public WebElement communicateDescript;
+
+		@FindBy(xpath = "//input[@name='communicatedTo']")
+		public WebElement communicateTo;
+		
+		@FindBy(xpath = "//label[contains(text(),'Communicated By')]//following::div[contains(@id,'s2id_autogen')]")
+		public WebElement communicateBy;
+		
+		@FindBy(xpath = "//div[@id='select2-drop']//input")
+		public WebElement communicateByName;
+
+		@FindBy(xpath = "//div[@id='select2-drop']//li[contains(@class,'highlighted')]")
+		public WebElement communicateByNameValue;
+		
+		@FindBy(xpath = "//div[@class='input-group-btn']")
+		public WebElement commDateIcon;
+		
+		@FindBy(xpath = "//button[contains(@class,' btn-info active')]")
+		public WebElement commDateSelect;	
+		
+		@FindBy(xpath = "//button[contains(@ng-click,'createCommunication')]")
+		public WebElement commCreate;
+		
+		@FindBy(xpath = "//button[@class='btn btn-green']")
+		public WebElement commYESButton;
+		
+		
+		@FindBy(xpath = "(//div[@class='ui-grid-canvas']//div[@class='icheckbox_flat'])[6]")
+		public WebElement checkbox1;
+		@FindBy(xpath = "(//div[@class='ui-grid-canvas']//div[@class='icheckbox_flat'])[7]")
+		public WebElement checkbox2;
+		@FindBy(xpath = "(//div[@class='ui-grid-canvas']//div[@class='icheckbox_flat'])[8]")
+		public WebElement checkbox3;
+		
+		
+		@FindBy(xpath = "//button[@title='Download as PDF']")
+		public WebElement pdfDownlaod;
+		
+		@FindBy(xpath = "//button[@title='Download as Excel']")
+		public WebElement excelDownlaod;
+		
+		@FindBy(xpath = "//button[@title='Delete']")
+		public WebElement deleteCustomers;
+		
+		
+		
+		
+		
 	public CustomerDetails_Page() {
 		PageFactory.initElements(driver, this);
 	}
