@@ -60,7 +60,7 @@ public class CustomersDetails extends Base {
 		Utility.implicitwait();
 	}
 
-	@Test(priority=1,enabled = true)
+	@Test(priority=1,enabled = false)
 	public void CreateCustomer() throws Exception {
 		create_extent_test("Create customer, Search Customer, Update Customer Details");
 
@@ -177,7 +177,7 @@ public class CustomersDetails extends Base {
 		System.out.println(System.getProperty("user.dir") + prop.getProperty("LogoFileUpload"));
 		String UploadFileexe = System.getProperty("user.dir") + prop.getProperty("LogoFileUpload");
 	    Runtime.getRuntime().exec(UploadFileexe);
-	  
+	    
 		Thread.sleep(5000);
 		Utility.click(custDetails.Capture);
 		
@@ -280,7 +280,7 @@ public class CustomersDetails extends Base {
 
 	}
 
-	@Test(priority=2,enabled = true)
+	@Test(priority=2,enabled = false)
 	public void UploadCustomer() throws InterruptedException, IOException {
 
 		create_extent_test("Upload customer details");
@@ -386,7 +386,7 @@ public class CustomersDetails extends Base {
 
 	}
 
-	@Test(priority=3,enabled = true)
+	@Test(priority=3,enabled = false)
 	public void CreateSalesInvoice() throws Exception {
 		create_extent_test("Create Sales Invoice");
 		
@@ -519,6 +519,316 @@ public class CustomersDetails extends Base {
 		}
 	}
 
+	//By Nitin Borse
+	@Test(enabled= false)
+	public void deleteCustomer() throws Exception{
+		
+		create_extent_test("Delete customer");
+	
+		Utility.click(custDetails.CustomersMenuBtn);
+			
+		Utility.implicitwait();
+		
+		String custName = custDetails.customerName.getText();
+		System.out.println(custName);
+		
+		String totalCustCount = custDetails.totalCustomerCount.getText();
+		System.out.println(totalCustCount.substring(3, 9));
+		
+		Utility.click(custDetails.togglebutton);
+		Utility.click(custDetails.deletebutton);
+		
+		String popuptxt = custDetails.popuptext.getText();
+		System.out.println(popuptxt);
+		String actual = "Are you sure you want to delete customer?";
+		
+		if(popuptxt.equals(actual)) {
+			et.log(LogStatus.PASS, "Popup message is as Expected",
+					et.addScreenCapture(fail("Popup message is as Expected")));
+			Utility.click(custDetails.yesbtn);
+			String popupMsg = custDetails.popUpMessage.getText();
+			if(popupMsg.equals("Success")) {
+				System.out.println("Deleted successfull");	
+				et.log(LogStatus.PASS, "Customer Deleted Successfully",
+						et.addScreenCapture(fail("Customer Deleted Successfully")));
+			}
+			else {
+				System.out.println("Transaction Exist, Customer deleted Unsuccessfully");
+				et.log(LogStatus.FAIL, "Customer deleted Unsuccessfully",
+						et.addScreenCapture(pass("Customer deleted Unsuccessfully")));
+			}
+			
+		}
+		else {
+			System.out.println("Error");
+			et.log(LogStatus.FAIL, "Popup Message is Wrong",
+					et.addScreenCapture(pass("Popup Message is Wrong")));
+		}
+				
+	}
+	
+	@Test(enabled= false)
+	public void createSO() throws Exception{
+	
+		create_extent_test("Create Sales Order");
+		
+		
+		Utility.click(custDetails.CustomersMenuBtn);
+				
+		Utility.implicitwait();		
+		String custName = custDetails.customerName.getText();
+		System.out.println(custName);		
+		String totalCustCount = custDetails.totalCustomerCount.getText();
+		System.out.println(totalCustCount.substring(3, 9));
+		
+		Utility.click(custDetails.togglebutton);
+		Utility.click(custDetails.createSO);
+		Utility.implicitwait();
+		
+		if(custName.equals(custDetails.soCustname.getText()))
+		{
+			et.log(LogStatus.PASS, "Customer Name is Same",
+					et.addScreenCapture(pass("Customer Name is Same")));
+			System.out.println("Customer Name is Same");
+			Utility.click(custDetails.soAddressDrop);
+			Utility.click(custDetails.soDropValue);
+
+			Utility.click(custDetails.soDateIcon);
+			Utility.click(custDetails.soDateSelect);
+			
+			Utility.click(custDetails.ProjNameDrop);
+			Utility.implicitwait();
+			Utility.click(custDetails.ProjSelect);
+			Utility.implicitwait();
+						
+			Utility.click(custDetails.clickInvoiceTable);
+			if (custDetails.clickProduct.isDisplayed()) {
+				et.log(LogStatus.PASS, "Product table is Enabled",
+						et.addScreenCapture(pass("Product table is Enabled")));
+			} else {
+				et.log(LogStatus.FAIL, "Product table is Disabled",
+						et.addScreenCapture(fail("Billing Invoice information not filled")));
+			}
+			Utility.implicitwait();
+			Utility.click(custDetails.clickProduct);
+			Utility.enterText(custDetails.enterProductVal, Utility.excelRead(1, 24));
+			Utility.implicitwait();
+			Utility.click(custDetails.selectProductVal);	
+			
+			Utility.enterText(custDetails.clickQuantity, Utility.excelReadInt(1, 36));	
+			
+			Utility.enterText(custDetails.clickRate, Utility.excelReadInt(1, 37));
+			Utility.enterText(custDetails.clickDiscount, Utility.excelReadInt(1, 38));
+			
+			Utility.click(custDetails.clickUOM);
+			Utility.enterText(custDetails.enterUOM, Utility.excelRead(1, 39));
+			Utility.click(custDetails.selectUOM);
+			
+			Utility.implicitwait();
+			
+			Utility.click(custDetails.clickCGST);
+			Utility.enterText(custDetails.enterCGST, Utility.excelReadInt(1, 40));
+			Utility.click(custDetails.selectCGST);
+			
+			Utility.click(custDetails.clickSGST);
+			Utility.enterText(custDetails.enterSGST, Utility.excelReadInt(1, 40));
+			Utility.click(custDetails.selectSGSTValue);
+			
+			
+			Utility.JS_ScrollDown();
+			Utility.implicitwait();
+			Utility.click(custDetails.saveButton);
+			Utility.implicitwait();
+
+			if (custDetails.yesButton.isDisplayed()) {
+				et.log(LogStatus.PASS, "Customers Sales Order is Created Sucessfully",
+						et.addScreenCapture(pass("Customers Sales Order is Created Sucessfully")));
+				Utility.click(custDetails.yesButton);
+			} else {
+				et.log(LogStatus.FAIL, "Customers Sales Order is not Created",
+						et.addScreenCapture(fail("Customers Sales Order is not Created")));
+			}
+			
+		}
+		else {
+			et.log(LogStatus.FAIL, "Customer Name is not Same",
+					et.addScreenCapture(fail("Customer Name is not Same")));
+			System.out.println("Customer Name is not Same.");
+			Utility.closeCurrentBrowser();
+		}
+	
+	}
+	
+	@Test(enabled= false)
+	public void logActivity() throws Exception{
+	
+		create_extent_test("Log Activity");
+
+		Utility.click(custDetails.CustomersMenuBtn);
+				
+		Utility.implicitwait();		
+		String custName = custDetails.customerName.getText();
+		System.out.println(custName);		
+		String totalCustCount = custDetails.totalCustomerCount.getText();
+		System.out.println(totalCustCount.substring(3, 9));
+		
+		Utility.click(custDetails.togglebutton);
+		Utility.click(custDetails.activityToggle);
+		Utility.implicitwait();
+		
+		if(custDetails.activityName.isDisplayed()) {
+			
+			et.log(LogStatus.PASS, "New Activity Popup Appeaars",
+					et.addScreenCapture(pass("New Activity Popup Appeaars")));
+				Utility.enterText(custDetails.activityName, Utility.excelRead(1, 42));
+				Utility.enterText(custDetails.activityDescrp, Utility.excelRead(1, 43));
+				
+				Utility.click(custDetails.activityType);
+				Utility.enterText(custDetails.activityTypeInput, Utility.excelRead(1, 44));
+				Utility.click(custDetails.selectCGST);
+				
+				Utility.click(custDetails.activityStatus);
+				Utility.enterText(custDetails.activityStatusInput, Utility.excelRead(1, 45));
+				Utility.click(custDetails.selectCGST);
+				
+				Utility.click(custDetails.activityPriority);
+				Utility.enterText(custDetails.activityPriorityInput, Utility.excelRead(1, 46));
+				Utility.click(custDetails.selectCGST);
+				
+				Utility.click(custDetails.soDateIcon);
+				Utility.click(custDetails.activitydateSelect);
+				
+				Utility.click(custDetails.activityAssignedTo);
+				Utility.enterText(custDetails.activityAssignedToName, Utility.excelRead(1, 47));
+				Utility.click(custDetails.activityAssignedToNameSelect);
+				
+				Utility.implicitwait();
+				Utility.click(custDetails.activityCreate);
+				Utility.implicitwait();
+				
+				if (custDetails.yesButton.isDisplayed()) {
+					et.log(LogStatus.PASS, "New Activity is Created Sucessfully",
+							et.addScreenCapture(pass("New Activity is Created Sucessfully")));
+					Utility.click(custDetails.yesButton);
+				} else {
+					et.log(LogStatus.FAIL, "New Activity is not Created Sucessfully",
+							et.addScreenCapture(fail("New Activity is not Created Sucessfully")));
+				}
+		}
+		else {
+			et.log(LogStatus.FAIL, "New Activity Popup is not Appeaar",
+					et.addScreenCapture(fail("New Activity Popup is not Appeaar")));
+		}
+		
+	}
+	
+	@Test(enabled= false)
+	public void logCommunication() throws Exception{
+	
+		create_extent_test("Log Activity");
+
+		Utility.click(custDetails.CustomersMenuBtn);
+				
+		Utility.implicitwait();		
+		String custName = custDetails.customerName.getText();
+		System.out.println(custName);		
+		String totalCustCount = custDetails.totalCustomerCount.getText();
+		System.out.println(totalCustCount.substring(3, 9));
+		
+		Utility.click(custDetails.togglebutton);
+		Utility.implicitwait();
+		
+		if (custDetails.communicateToggle.isDisplayed()) {
+			et.log(LogStatus.PASS, "Log Communication displayed",
+					et.addScreenCapture(pass("Log Communication displayed")));
+			Utility.click(custDetails.communicateToggle);
+			
+			Utility.enterText(custDetails.communicateMode, Utility.excelRead(1, 48));
+			Utility.enterText(custDetails.communicateDescript, Utility.excelRead(1, 49));
+			Utility.enterText(custDetails.communicateTo, Utility.excelRead(1, 50));
+			
+			Utility.click(custDetails.communicateBy);
+			Utility.enterText(custDetails.communicateByName, Utility.excelRead(1, 47));
+			Utility.click(custDetails.communicateByNameValue);
+			
+			Utility.click(custDetails.commDateIcon);
+			Utility.click(custDetails.commDateSelect);
+		
+			Utility.click(custDetails.commCreate);
+			
+			Utility.implicitwait();
+			if (custDetails.commYESButton.isDisplayed()) {
+				et.log(LogStatus.PASS, "New Communication is Created Sucessfully",
+						et.addScreenCapture(pass("New Communication is Created Sucessfully")));
+				Utility.click(custDetails.commYESButton);
+			} else {
+				et.log(LogStatus.FAIL, "New Communication is not Created Sucessfully",
+						et.addScreenCapture(fail("New Communication is not Created Sucessfully")));
+			}
+			
+		} else {
+			et.log(LogStatus.FAIL, "Log Communication is not displayed",
+					et.addScreenCapture(fail("Log Communication is not displayed")));
+		}
+		
+	}
+	
+	@Test(enabled= false)
+	public void ActionPerform() throws Exception{
+	
+		create_extent_test("Log Activity");
+
+		Utility.click(custDetails.CustomersMenuBtn);
+		Utility.implicitwait();	
+		
+		Utility.JS_ScrollDown();
+		
+		Utility.click(custDetails.checkbox1);
+		Utility.click(custDetails.checkbox2);
+		Utility.click(custDetails.checkbox3);
+		Utility.JS_ScrollUP();
+		Utility.implicitwait();	
+		
+		if (custDetails.pdfDownlaod.isDisplayed()) {
+			et.log(LogStatus.PASS, "PDF Downloaded Sucessfully",
+					et.addScreenCapture(pass("PDF Downloaded Sucessfully")));
+			Utility.click(custDetails.pdfDownlaod);
+			System.out.println("Pdf downloaded");
+		} else {
+			et.log(LogStatus.FAIL, "PDF Downloaded Fail",
+					et.addScreenCapture(fail("PDF Downloaded Fail")));
+		}
+		Utility.implicitwait();
+		
+		
+		
+		if (custDetails.excelDownlaod.isDisplayed()) {
+			et.log(LogStatus.PASS, "cDownloaded Sucessfully",
+					et.addScreenCapture(pass("Excel Downloaded Sucessfully")));
+			Utility.click(custDetails.excelDownlaod);
+			System.out.println("Excel download");
+		} else {
+			et.log(LogStatus.FAIL, "Excel Downloaded Fail",
+					et.addScreenCapture(fail("Excel Downloaded Fail")));
+		}
+		
+		Utility.click(custDetails.deleteCustomers);
+		Utility.click(custDetails.yesButton);
+		String popupMsg = custDetails.popUpMessage.getText();
+		if(popupMsg.equals("Success")) {
+			et.log(LogStatus.PASS, "Customers Deleted successfully",
+					et.addScreenCapture(pass("Customers Deleted successfully")));
+			System.out.println("Deleted successfully");				
+		}
+		else {
+			et.log(LogStatus.FAIL, "Customers Deleted Unsuccessfully",
+					et.addScreenCapture(fail("Customers Deleted Unsuccessfully")));
+			System.out.println("Deleted Unsuccessfully");
+		}
+		Utility.implicitwait();
+		
+	}
+	
 	@AfterMethod
 	public void tearDown() {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
